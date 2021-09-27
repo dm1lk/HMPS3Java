@@ -1,0 +1,102 @@
+package xyz.dm1lk.hmplugin;
+
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
+import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
+import xyz.dm1lk.hmplugin.commands.CommandManager;
+import xyz.dm1lk.hmplugin.listeners.onPlayerDeath;
+import xyz.dm1lk.hmplugin.listeners.onPlayerJoin;
+import xyz.dm1lk.hmplugin.tasks.GhostEffectTasks;
+
+import java.io.File;
+
+public class Main extends JavaPlugin {
+    public static StateFlag reviveFlag;
+    private static Plugin plugin;
+    private static File configFile;
+    private static LuckPerms luckPerms;
+    private static BukkitScheduler scheduler;
+    private static WorldGuard worldGuard;
+
+    public static WorldGuard getWorldGuard() {
+        return worldGuard;
+    }
+
+    public static Plugin getPlugin() {
+        return plugin;
+    }
+
+    public static void reloadConfiguration() {
+        scheduler.runTaskAsynchronously(plugin, () -> {
+            if (!plugin.getDataFolder().exists()) {
+                plugin.getDataFolder().mkdir();
+            }
+
+            if (!configFile.exists()) {
+                plugin.saveDefaultConfig();
+            }
+            plugin.reloadConfig();
+        });
+    }
+
+    public static LuckPerms getLuckperms() {
+        return luckPerms;
+    }
+
+    @Override
+    public void onLoad() {
+        if (!this.getDataFolder().exists()) {
+            this.getDataFolder().mkdir();
+        }
+        configFile = new File(this.getDataFolder(), "config.yml");
+        if (!configFile.exists()) {
+            this.saveDefaultConfig();
+        }
+    }
+
+    @Override
+    public void onEnable() {
+        CommandManager commandManager = new CommandManager();
+        luckPerms = LuckPermsProvider.get();
+        plugin = this;
+        PluginManager pluginManager = getServer().getPluginManager();
+        scheduler = Bukkit.getScheduler();
+        reviveFlag = new StateFlag("revive", false);
+        worldGuard = WorldGuard.getInstance();
+        FlagRegistry registry = WorldGuard.getInstance().getFlagRegistry();
+        try {
+            registry.register(reviveFlag);
+        } catch (FlagConflictException e) {
+            Flag<?> existing = registry.get("revive");
+            if (existing instanceof StateFlag) {
+                reviveFlag = (StateFlag) existing;
+            }
+        }
+        if (!Bukkit.getWorlds().isEmpty()) {
+            getLogger().warning("======================");
+            getLogger().warning("    RELOAD DETECTED   ");
+            getLogger().warning("    Why do you hate   ");
+            getLogger().warning("       yourself?      ");
+            getLogger().warning("======================");
+        }
+        pluginManager.registerEvents(new onPlayerDeath(), this);
+        pluginManager.registerEvents(new onPlayerJoin(), this);
+        scheduler.runTaskTimer(this, (Runnable) GhostEffectTasks.applyStandardEffects(), 0L, 300L);
+        scheduler.runTaskTimer(this, (Runnable) GhostEffectTasks.applyGlowing(), 0L, 20L);
+        commandManager.setup(this);
+    }
+
+    @Override
+    public void onDisable() {
+        scheduler.cancelTasks(this);
+    }
+}
