@@ -1,7 +1,7 @@
 package xyz.dm1lk.hmplugin.subcommands;
 
 import org.bukkit.command.CommandSender;
-import xyz.dm1lk.hmplugin.commands.SubCommand;
+import xyz.dm1lk.hmplugin.interfaces.SubCommand;
 
 import java.util.List;
 

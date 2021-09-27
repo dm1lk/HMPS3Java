@@ -16,13 +16,23 @@ import xyz.dm1lk.hmplugin.api.events.ReviveEvent;
 import static xyz.dm1lk.hmplugin.internal.PlayerManager.revivePlayer;
 
 public class AnimationManager {
-    private static final String[] ringCoordActivatedA = DataManager.getRingCoordActivatedA();
-    private static final String[] ringCoordActivatedB = DataManager.getRingCoordActivatedB();
-    private static final String[] ringCoordActivatedC = DataManager.getRingCoordActivatedC();
-    private static final String[] ringCoordIdleA = DataManager.getringCoordIdleA();
-    private static final String[] ringCoordIdleB = DataManager.getringCoordIdleB();
-    private static final String[] ringCoordIdleC = DataManager.getringCoordIdleC();
-    private static final String[] fireworks = DataManager.getFireworks();
+    private static String[] ringCoordActivatedA;
+    private static String[] ringCoordActivatedB;
+    private static String[] ringCoordActivatedC;
+    private static String[] ringCoordIdleA;
+    private static String[] ringCoordIdleB;
+    private static String[] ringCoordIdleC;
+    private static String[] fireworks;
+
+    public AnimationManager() {
+        ringCoordActivatedA = DataManager.getRingCoordActivatedA();
+        ringCoordActivatedB = DataManager.getRingCoordActivatedB();
+        ringCoordActivatedC = DataManager.getRingCoordActivatedC();
+        ringCoordIdleA = DataManager.getRingCoordIdleA();
+        ringCoordIdleB = DataManager.getRingCoordIdleB();
+        ringCoordIdleC = DataManager.getRingCoordIdleC();
+        fireworks = DataManager.getFireworks();
+    }
 
     public static void adminRevive(Player player) {
         ReviveEvent reviveEvent = new ReviveEvent(player.getUniqueId());

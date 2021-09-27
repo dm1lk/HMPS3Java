@@ -8,11 +8,12 @@ import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
-import xyz.dm1lk.hmplugin.commands.CommandManager;
+import xyz.dm1lk.hmplugin.internal.CommandManager;
 import xyz.dm1lk.hmplugin.listeners.onPlayerDeath;
 import xyz.dm1lk.hmplugin.listeners.onPlayerJoin;
 import xyz.dm1lk.hmplugin.tasks.GhostEffectTasks;
@@ -35,8 +36,9 @@ public class Main extends JavaPlugin {
         return plugin;
     }
 
-    public static void reloadConfiguration() {
+    public static void reloadConfiguration(CommandSender sender) {
         scheduler.runTaskAsynchronously(plugin, () -> {
+            sender.sendMessage("§c§lHMP §8§l>>§7 Reloading plugin...");
             if (!plugin.getDataFolder().exists()) {
                 plugin.getDataFolder().mkdir();
             }
@@ -45,6 +47,7 @@ public class Main extends JavaPlugin {
                 plugin.saveDefaultConfig();
             }
             plugin.reloadConfig();
+            sender.sendMessage("§c§lHMP §8§l>>§a Reloaded plugin successfully!");
         });
     }
 

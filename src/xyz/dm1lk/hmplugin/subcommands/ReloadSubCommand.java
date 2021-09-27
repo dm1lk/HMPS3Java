@@ -1,30 +1,30 @@
 package xyz.dm1lk.hmplugin.subcommands;
 
 import org.bukkit.command.CommandSender;
+import xyz.dm1lk.hmplugin.Main;
 import xyz.dm1lk.hmplugin.interfaces.SubCommand;
-import xyz.dm1lk.hmplugin.internal.AnimationManager;
 
 import java.util.List;
 
-public class ExecuteSubCommand extends SubCommand {
+public class ReloadSubCommand extends SubCommand {
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        AnimationManager.reviveMachine();
+        Main.reloadConfiguration(sender);
     }
 
     @Override
     public String getName() {
-        return "execute";
+        return "reload";
     }
 
     @Override
     public String getInfo() {
-        return "Directly calls upon the revive machine method.";
+        return "Reloads plugin configuration.";
     }
 
     @Override
     public String getPermission() {
-        return null;
+        return "hmp.reload";
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 import xyz.dm1lk.hmplugin.Main;
-import xyz.dm1lk.hmplugin.commands.SubCommand;
+import xyz.dm1lk.hmplugin.interfaces.SubCommand;
 import xyz.dm1lk.hmplugin.internal.AnimationManager;
 
 import java.util.List;
