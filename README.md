@@ -22,5 +22,8 @@ The main feature-set includes:
 
 *This is not an exhaustive list and does not cover every feature, so please look at the code and see for yourself.*
 
-# Libaries Used & Credits
-
+# Dependencies Used & Credits
+- HolographicDIsplays
+- ParticleLib
+- WorldEdit
+- WorldGuard
