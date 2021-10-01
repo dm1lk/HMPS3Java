@@ -19,14 +19,19 @@ public class CommandManager implements org.bukkit.command.TabExecutor {
         return new ArrayList<>(commands);
     }
 
-    public void setup(Main plugin) {
-        plugin.getCommand(baseCommand).setExecutor(this);
-        plugin.getCommand(baseCommand).setTabCompleter(this);
+    public void setupCommands(Main plugin) {
+        if (plugin.getCommand(baseCommand) != null) {
+            plugin.getCommand(baseCommand).setExecutor(this);
+            plugin.getCommand(baseCommand).setTabCompleter(this);
+        } else {
+            plugin.getServer().getPluginManager().disablePlugin(plugin);
+        }
         commands.add(new HelpSubCommand());
         commands.add(new FakeGhostSubCommand());
         commands.add(new FakeReviveSubCommand());
         commands.add(new ExecuteSubCommand());
         commands.add(new GhostSubCommand());
+        commands.add(new ReloadSubCommand());
         commands.add(new ReviveSubCommand());
     }
 

@@ -3,10 +3,6 @@ package xyz.dm1lk.hmplugin.internal;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
-import xyz.dm1lk.hmplugin.Main;
-
-import java.io.File;
-import java.io.IOException;
 
 public class PlayerManager {
     public static void revivePlayer(Player player) {
@@ -18,6 +14,7 @@ public class PlayerManager {
         PermissionManager.disableGhostPermissions(player);
     }
 
+    /*
     public static File getPlayerData(Player player) {
         if (!Main.getPlugin().getDataFolder().exists()) {
             Main.getPlugin().getDataFolder().mkdir();
@@ -35,5 +32,5 @@ public class PlayerManager {
             }
         }
         return pDataFile;
-    }
+    } */
 }

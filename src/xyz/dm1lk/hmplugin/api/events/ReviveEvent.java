@@ -13,8 +13,12 @@ public class ReviveEvent extends Event implements Cancellable {
     private final Player player;
     private boolean cancelled;
 
-    public ReviveEvent (UUID uuid) {
+    public ReviveEvent(UUID uuid) {
         this.player = Bukkit.getPlayer(uuid);
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     public Player getPlayer() {
@@ -33,10 +37,6 @@ public class ReviveEvent extends Event implements Cancellable {
 
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -1,31 +1,9 @@
 package xyz.dm1lk.hmplugin.listeners;
 
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldguard.LocalPlayer;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.regions.RegionQuery;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.meta.ItemMeta;
-import xyz.dm1lk.hmplugin.Main;
-import xyz.dm1lk.hmplugin.internal.AnimationManager;
-
-import java.util.Arrays;
-
-import static org.bukkit.GameMode.SURVIVAL;
-import static org.bukkit.event.block.Action.RIGHT_CLICK_AIR;
-import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
-import static xyz.dm1lk.hmplugin.Main.reviveFlag;
 
 public class onPlayerInteract implements Listener {
-
+/*
     // TODO: Ensure ReviveBookItem activates revive machine animation, this can be done by using AnimationManager.ReviveMachine();
     // TODO: Should also probably make it so only one revival can happen at once. ;-;
 
@@ -55,5 +33,5 @@ public class onPlayerInteract implements Listener {
                 }
             }
         }
-    }
+    } */
 }

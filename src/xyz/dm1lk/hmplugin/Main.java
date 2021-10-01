@@ -14,6 +14,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import xyz.dm1lk.hmplugin.internal.CommandManager;
+import xyz.dm1lk.hmplugin.internal.DataManager;
 import xyz.dm1lk.hmplugin.listeners.onPlayerDeath;
 import xyz.dm1lk.hmplugin.listeners.onPlayerJoin;
 import xyz.dm1lk.hmplugin.tasks.GhostEffectTasks;
@@ -94,8 +95,9 @@ public class Main extends JavaPlugin {
         pluginManager.registerEvents(new onPlayerDeath(), this);
         pluginManager.registerEvents(new onPlayerJoin(), this);
         scheduler.runTaskTimer(this, (Runnable) GhostEffectTasks.applyStandardEffects(), 0L, 300L);
-        scheduler.runTaskTimer(this, (Runnable) GhostEffectTasks.applyGlowing(), 0L, 20L);
-        commandManager.setup(this);
+        scheduler.runTaskTimer(this, (Runnable) GhostEffectTasks.applyReviveIslandEffects(), 0L, 20L);
+        DataManager.setupAnimationValues();
+        commandManager.setupCommands(this);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ReviveSubCommand extends SubCommand {
                 if (player.getGameMode().equals(GameMode.SURVIVAL)) {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', configuration.getString("messages.admin.already-alive")).replace("%player%", player.getName()));
                 } else {
-                    AnimationManager.adminRevive(player);
+                    AnimationManager.playAdminReviveAnimation(player);
                 }
             } else {
                 sender.sendMessage("§c§lHMP §8>>§cCannot find a player by this name who is online right now.");

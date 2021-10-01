@@ -31,7 +31,7 @@ public class GhostEffectTasks {
         };
     }
 
-    public static BukkitRunnable applyGlowing() {
+    public static BukkitRunnable applyReviveIslandEffects() {
         return new BukkitRunnable() {
             @Override
             public void run() {

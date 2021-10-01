@@ -24,17 +24,17 @@ public class AnimationManager {
     private static String[] ringCoordIdleC;
     private static String[] fireworks;
 
-    public AnimationManager() {
-        ringCoordActivatedA = DataManager.getRingCoordActivatedA();
-        ringCoordActivatedB = DataManager.getRingCoordActivatedB();
-        ringCoordActivatedC = DataManager.getRingCoordActivatedC();
-        ringCoordIdleA = DataManager.getRingCoordIdleA();
-        ringCoordIdleB = DataManager.getRingCoordIdleB();
-        ringCoordIdleC = DataManager.getRingCoordIdleC();
-        fireworks = DataManager.getFireworks();
+    public static void saveCoordinates(String[] RingCoordActivatedA, String[] RingCoordActivatedB, String[] RingCoordActivatedC, String[] RingCoordIdleA, String[] RingCoordIdleB, String[] RingCoordIdleC, String[] Fireworks) {
+        ringCoordActivatedA = RingCoordActivatedA;
+        ringCoordActivatedB = RingCoordActivatedB;
+        ringCoordActivatedC = RingCoordActivatedC;
+        ringCoordIdleA = RingCoordIdleA;
+        ringCoordIdleB = RingCoordIdleB;
+        ringCoordIdleC = RingCoordIdleC;
+        fireworks = Fireworks;
     }
 
-    public static void adminRevive(Player player) {
+    public static void playAdminReviveAnimation(Player player) {
         ReviveEvent reviveEvent = new ReviveEvent(player.getUniqueId());
         Bukkit.getPluginManager().callEvent(reviveEvent);
         if (!reviveEvent.isCancelled()) {
@@ -62,26 +62,7 @@ public class AnimationManager {
         }
     }
 
-    public static void reviveMachine() {
-        BukkitScheduler scheduler = Bukkit.getScheduler();
-        Plugin plugin = Main.getPlugin();
-        Location podiumLocation = new Location(Bukkit.getWorld("world"), -208.5, 71, 208.5);
-        Player player = (Player) podiumLocation.getWorld().getNearbyEntities(podiumLocation, 25, 25, 25).stream()
-                .filter(entity -> entity instanceof Player)
-                .filter(entity -> ((Player) entity).getGameMode().equals(GameMode.ADVENTURE))
-                .findFirst()
-                .orElse(null);
-        if (player != null) {
-            ReviveEvent reviveEvent = new ReviveEvent(player.getUniqueId());
-            Bukkit.getPluginManager().callEvent(reviveEvent);
-            if (!reviveEvent.isCancelled()) {
-                activateRingsAndRevive(scheduler, plugin, podiumLocation, player);
-                deactivateRings(scheduler, plugin);
-            }
-        }
-    }
-
-    private static void activateRingsAndRevive(BukkitScheduler scheduler, Plugin plugin, Location podiumLocation, Player player) {
+    public static void playReviveMachineAnimation(BukkitScheduler scheduler, Plugin plugin, Location podiumLocation, Player player) {
         int ticks = 0;
         for (int i = 0; i < 6; i++) {
             ticks = ticks + 24;
@@ -102,20 +83,18 @@ public class AnimationManager {
                 } else {
                     dispatchCommand("setblock -209 83 208 minecraft:sea_lantern");
                     scheduler.runTaskLater(plugin, () -> {
-                        player.teleport(podiumLocation);
                         revivePlayer(player);
+                        player.teleport(podiumLocation);
+                        DataManager.setReviveMachineActive(false);
+                        podiumLocation.getWorld().strikeLightningEffect(podiumLocation);
                         dispatchCommand("playsound minecraft:block.end_portal.spawn master @a -208 72 208 100000 1 1");
+                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("messages.revive-message").replace("%player%", player.getName())));
                         dispatchCommand("summon firework_rocket -209 72 208 {Silent:yes,LifeTime:1,FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Flight:1,Explosions:[{Type:1,Flicker:0,Trail:0,Colors:[I;2437522,2651799,6719955,15790320],FadeColors:[I;1973019]},{Type:2,Flicker:0,Trail:0,Colors:[I;2437522,2651799,6719955,15790320],FadeColors:[I;1973019]},{Type:0,Flicker:0,Trail:0,Colors:[I;2437522,2651799,6719955,15790320],FadeColors:[I;1973019]},{Type:1,Flicker:0,Trail:0,Colors:[I;2437522,2651799,6719955,15790320],FadeColors:[I;1973019]}]}}}}");
-                        Bukkit.getWorld("world").strikeLightningEffect(podiumLocation);
-                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("messages.revive-msg").replace("%player%", player.getName())));
                     }, 8);
                 }
                 dispatchCommand("playsound minecraft:block.beacon.activate master @a -208 80 208 100000 1 1");
             }, ticks);
         }
-    }
-
-    private static void deactivateRings(BukkitScheduler scheduler, Plugin plugin) {
         int ticksTwo = 168;
         for (int j = -1; j < 5; j++) {
             ticksTwo = ticksTwo + 16;
