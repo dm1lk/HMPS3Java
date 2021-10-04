@@ -1,0 +1,65 @@
+# :::    ::: ::::    ::::  :::::::::
+# :+:    :+: +:+:+: :+:+:+ :+:    :+:
+# +:+    +:+ +:+ +:+:+ +:+ +:+    +:+
+# +#++:++#++ +#+  +:+  +#+ +#++:++#+   ____  _  _    ____  _  _   __  __    __ _
+# +#+    +#+ +#+       +#+ +#+        (  _ \( \/ )  (    \( \/ ) /  \(  )  (  / )
+# #+#    #+# #+#       #+# #+#        ) _ ( )  /    ) D (/ \/ \(_/ // (_/\ )  (
+# ###    ### ###       ### ###       (____/(__/    (____/\_)(_/ (__)\____/(__\_)
+
+# Version 1.0.0
+
+settings:
+  # HMPublic (Disables features exclusive to HMPrivate) / HMPrivate (Disables features exclusive to HMPublic) / ALL (Enables Everything.)
+  mode:
+    type: HMPrivate
+    # If set to ALL, please define if the plugin should use the coordinates for revive machine from the HMPrivate or HMPublic.
+    # If none while set to all, revive machine will not function!
+    coord-type: none
+  # Send a custom message on first join!
+  first-join-msg: true
+  # Configuration for what happens on player death.
+  death:
+    # Strike the player with lightning when they die?
+    lightning: true
+    # Broadcast their death to the server?
+    broadcast: 'MESSAGE'
+  # Sets the name of the permission group used to set ghost permissions.
+  ghost-permission-group: "dead"
+  # Configuration for the revival sequence.
+  revival:
+    # Broadcast their revival to the server? (NONE, TITLE, ACTIONBAR, BOSSBAR, MESSAGE)
+    broadcast: 'MESSAGE'
+# Plugin Messages
+messages:
+  death: '&c☠&l %cause%'
+  already-dead: '&7☠&l %cause%'
+  revive-message: '&a❤&l %player% has been revived!'
+  first-join: '§a❤§l %player% has been summoned by the revive machine!'
+  admin:
+    admin-revive: "&a❤&l Magical forces have brought %player% back from the dead!"
+    already-alive: "&7&o %player% is already alive!"
+    become-ghost: "&c☠&l Dark forces have dragged %player% into the afterlife!"
+    already-ghost: "&7&o %player% is already a ghost!"
+    give-book: "&c❤&l You're received a revive book!"
+    receive-book: "&7&o A revive book was given to %player%"
+# Exclusive Settings for HMPublic
+hmpublic:
+  enableInteractableReviveBook: true # Prevents revive book from being used but not from being obtained via /revivebook
+  questCategoryIds: # Players will be awarded points for each quest category.
+    - "HOTSQ1"
+    - "HOTSQ2"
+    - "HOTSQ3"
+    - "HOTSQ4"
+    - "TQ1"
+    - "TQ2"
+    - "TQ3"
+    - "TQ4"
+    - "NSQ1"
+    - "NSQ2"
+    - "NSQ3"
+    - "NSQ4"
+    - "GAQ1"
+    - "GAQ2"
+    - "GAQ3"
+    - "GAQ4"
+config-version: 1

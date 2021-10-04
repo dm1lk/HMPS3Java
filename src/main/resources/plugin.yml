@@ -1,0 +1,20 @@
+name: HMP
+version: '${project.version}'
+main: xyz.dm1lk.hmp.Main
+api-version: 1.17
+prefix: HMP
+load: STARTUP
+depend: [ LuckPerms, WorldGuard, WorldEdit ]
+authors: [ dm1lk ]
+description: HMPenis Mechanics.
+website: https://www.dm1lk.xyz/plugins
+commands:
+  hmp:
+    description: Base-command for the HMP plugin.
+permissions:
+  hmprivate.*:
+    description: Allows access to all HMPublic Admin Commands.
+    children:
+      - hmprivate.admin
+      - hmprivate.revive
+      - hmprivate.ghost
