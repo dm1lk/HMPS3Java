@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="HMP:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/HMP_jar</output-path>
-    <root id="archive" name="HMP.jar">
-      <element id="module-output" name="HMP" />
-    </root>
-  </artifact>
-</component>
