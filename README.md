@@ -14,11 +14,11 @@ The HMP is a semi-hardcore multiplayer server where if you die, you become a gho
 
 # Features
 The main feature-set includes:
-- Handles Revival (Obviously)
+- Handles Revival
 - Handles Animations
 - Handles Permissions
 - Handles Messages
-- Handles Quest Rewards (HMPublic)
+- Handles Quest Rewards
 
 *This is not an exhaustive list and does not cover every feature, so please look at the code and see for yourself.*
 
